@@ -1,0 +1,2718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zudio App — UX Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --black: #0a0a0a;
+      --surface: #141414;
+      --surface2: #1c1c1c;
+      --border: #242424;
+      --muted: #ccccccd7;
+      --body: #d4d4d4;
+      --heading: #f5f5f0;
+      --white: #d18d05;
+      --accent: #f5f5f0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--body);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── LAYOUT ── */
+    .section {
+      padding: 72px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section:last-child {
+      border-bottom: none;
+    }
+
+    .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── TYPE ── */
+    .tag {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tag::before {
+      content: '';
+      width: 18px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    .h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 5vw, 60px);
+      color: var(--heading);
+      line-height: 1;
+      margin-bottom: 22px;
+      letter-spacing: 1px;
+    }
+
+    .h1 .w {
+      color: var(--white);
+    }
+
+    .h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      color: var(--heading);
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .lead {
+      font-size: 18px;
+      line-height: 1.85;
+      color: var(--body);
+      max-width: 640px;
+    }
+
+    /* ── GRIDS ── */
+    .g2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .g3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .g4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+    }
+
+    .card-accent {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+      border-left: 2px solid var(--white);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      background: var(--black);
+      padding: 96px 48px 72px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::after {
+      content: 'ZUDIO';
+      position: absolute;
+      right: -20px;
+      bottom: -60px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 260px;
+      color: #111;
+      letter-spacing: 10px;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow span {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #333;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      background: var(--white);
+      border-radius: 50%;
+    }
+
+    .hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 12vw, 120px);
+      line-height: 0.88;
+      color: var(--heading);
+      margin-bottom: 8px;
+      letter-spacing: 3px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-name .outline {
+      -webkit-text-stroke: 1px #333;
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(16px, 2.5vw, 22px);
+      color: #2a2a2a;
+      margin-bottom: 36px;
+      letter-spacing: 3px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill {
+      padding: 6px 16px;
+      border: 1px solid #1e1e1e;
+      border-radius: 100px;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── STATS ── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .stat-box {
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 24px;
+      border: 1px solid var(--border);
+    }
+
+    .stat-n {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+
+    .stat-l {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── PROBLEM ── */
+    .prob-box {
+      background: var(--surface);
+      border-left: 2px solid var(--white);
+      border-radius: 0 10px 10px 0;
+      padding: 28px;
+      margin: 28px 0;
+    }
+
+    .prob-q {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--heading);
+      line-height: 1.3;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .prob-b {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ── LIST ITEMS ── */
+    .li {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 7px 0;
+      border-bottom: 1px solid var(--surface2);
+      line-height: 1.5;
+    }
+
+    .li::before {
+      content: '— ';
+      color: var(--body);
+    }
+
+    .li:last-child {
+      border-bottom: none;
+    }
+
+    /* ── PROCESS ── */
+    .proc-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+      margin-top: 28px;
+    }
+
+    .step {
+      background: var(--surface);
+      padding: 20px 16px;
+    }
+
+    .step:first-child {
+      border-radius: 10px 0 0 10px;
+    }
+
+    .step:last-child {
+      border-radius: 0 10px 10px 0;
+    }
+
+    .step-n {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      color: var(--surface2);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .step-l {
+      font-size: 10px;
+      color: var(--white);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .step-d {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── COMPETITOR ── */
+    .comp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .comp-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--heading);
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 1px;
+    }
+
+    .cc-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 7px;
+      align-items: flex-start;
+    }
+
+    .cc-lbl {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #333;
+      min-width: 66px;
+      margin-top: 2px;
+    }
+
+    .cc-val {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .tag-w {
+      display: inline-block;
+      background: #1c1c1c;
+      color: var(--body);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .insight-tag {
+      background: #111;
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--muted);
+      border-left: 2px solid var(--body);
+      line-height: 1.6;
+    }
+
+    .insight-tag strong {
+      font-size: 9px;
+      color: var(--white);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .findings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .finding-box {
+      padding: 14px;
+      background: #111;
+      border-radius: 8px;
+      border-left: 2px solid var(--body);
+    }
+
+    .finding-label {
+      font-size: 9px;
+      color: var(--white);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .finding-text {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── PERSONA ── */
+    .persona-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .persona-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--white);
+    }
+
+    .p-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1.5px solid var(--body);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+
+    .p-avatar svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .p-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      color: var(--heading);
+      margin-bottom: 2px;
+      letter-spacing: 0.5px;
+    }
+
+    .p-role {
+      font-size: 10px;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 14px;
+    }
+
+    .p-stat {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .p-stat strong {
+      color: var(--body);
+    }
+
+    .p-divider {
+      border: none;
+      border-top: 1px solid var(--surface2);
+      margin: 12px 0;
+    }
+
+    .p-pain {
+      font-size: 11px;
+      color: var(--muted);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--surface2);
+      line-height: 1.5;
+    }
+
+    .p-pain::before {
+      content: '↳ ';
+      color: var(--body);
+    }
+
+    .p-pain:last-of-type {
+      border-bottom: none;
+    }
+
+    .p-quote {
+      background: #111;
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--muted);
+      font-style: italic;
+      border-left: 2px solid var(--body);
+      line-height: 1.6;
+    }
+
+    /* ── EMPATHY ── */
+    .em-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 28px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .em-q {
+      background: var(--surface);
+      padding: 24px;
+    }
+
+    .em-l {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .em-i {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--surface2);
+      line-height: 1.5;
+    }
+
+    .em-i:last-child {
+      border-bottom: none;
+    }
+
+    /* ── IA ── */
+    .ia-frame {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-top: 28px;
+      overflow: hidden;
+      min-height: 460px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ia-frame-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ia-frame-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    .ia-frame-title {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-left: 4px;
+    }
+
+    .ia-drop-zone {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 14px;
+      padding: 48px;
+      border: 1.5px dashed var(--border);
+      margin: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      position: relative;
+    }
+
+    .ia-drop-zone:hover {
+      border-color: var(--body);
+    }
+
+    .ia-drop-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ia-drop-icon {
+      font-size: 28px;
+      opacity: 0.2;
+    }
+
+    .ia-drop-text {
+      font-size: 12px;
+      color: #333;
+      letter-spacing: 1px;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .ia-drop-text strong {
+      color: var(--muted);
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    .ia-preview {
+      display: none;
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    /* ── DESIGN SYSTEM ── */
+    .ds-colors {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .ds-sw-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .ds-sw {
+      width: 54px;
+      height: 54px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .ds-sw-n {
+      font-size: 9px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .ds-type-box {
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 22px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .ds-comp-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-p {
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      cursor: default;
+    }
+
+    .btn-g {
+      background: transparent;
+      color: var(--body);
+      border: 1px solid var(--border);
+      padding: 10px 22px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: default;
+    }
+
+    .chip {
+      background: var(--surface2);
+      color: var(--muted);
+      border-radius: 100px;
+      padding: 5px 13px;
+      font-size: 10px;
+    }
+
+    .input-m {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 9px 13px;
+      font-size: 12px;
+      color: #333;
+      min-width: 150px;
+    }
+
+    /* ── IMAGE PLACEHOLDER SHARED ── */
+    .img-slot {
+      background: var(--surface2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px dashed var(--border);
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .img-slot:hover {
+      border-color: var(--body);
+    }
+
+    .img-slot input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .img-slot span {
+      font-size: 9px;
+      color: #2a2a2a;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.7;
+      pointer-events: none;
+    }
+
+    .img-slot img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      border-radius: 4px;
+      /* Simpler, cleaner look for screens */
+    }
+
+    /* ── WIREFRAMES ── */
+    .wf-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .wf-screen {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .wf-bar {
+      background: #0f0f0f;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .wf-dot2 {
+      width: 5px;
+      height: 5px;
+      background: var(--body);
+      border-radius: 50%;
+    }
+
+    .wf-sn {
+      font-size: 8px;
+      color: #2a2a2a;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .wf-body {
+      padding: 10px;
+    }
+
+    .wf-nav {
+      background: #0d0d0d;
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+      border-top: 1px solid var(--surface2);
+    }
+
+    .wf-nd {
+      width: 18px;
+      height: 2px;
+      background: var(--surface2);
+      border-radius: 2px;
+    }
+
+    .wf-nd.a {
+      background: var(--white);
+    }
+
+    /* ── UI SCREENS ── */
+    .ui-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .ui-screen {
+      background: #0f0f0f;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .ui-hdr {
+      padding: 12px 16px 10px;
+      background: #0a0a0a;
+      border-bottom: 1px solid var(--surface2);
+    }
+
+    .ui-htag {
+      font-size: 9px;
+      color: #2a2a2a;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .ui-hdesc {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .ui-body {
+      padding: 14px;
+    }
+
+    /* ── PROTOTYPE ── */
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .flow-card {
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 18px;
+      border: 1px solid var(--border);
+    }
+
+    .flow-n {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      color: var(--surface2);
+      margin-bottom: 8px;
+    }
+
+    .flow-l {
+      font-size: 10px;
+      color: var(--white);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .flow-d {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .proto-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 40px 24px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .proto-icon {
+      font-size: 28px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .proto-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--heading);
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .proto-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 22px;
+    }
+
+    .proto-btn {
+      display: inline-block;
+      background: var(--white);
+      color: var(--black);
+      padding: 11px 30px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+
+    .proto-note {
+      margin-top: 12px;
+      font-size: 11px;
+      color: #2a2a2a;
+    }
+
+    /* ── HEURISTIC ── */
+    .heuristic-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .h-box {
+      padding: 14px;
+      background: #111;
+      border-radius: 8px;
+      border-left: 2px solid var(--body);
+    }
+
+    .h-label {
+      font-size: 9px;
+      color: var(--white);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .h-text {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── ROADMAP ── */
+    .rm-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .rm-box {
+      background: #111;
+      padding: 18px 16px;
+    }
+
+    .rm-n {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      color: var(--surface2);
+      margin-bottom: 8px;
+    }
+
+    .rm-l {
+      font-size: 9px;
+      color: var(--white);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .rm-d {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── FOOTER ── */
+    #footer {
+      padding: 48px;
+      background: #080808;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      color: #1a1a1a;
+      letter-spacing: 4px;
+    }
+
+    .footer-sub {
+      font-size: 10px;
+      color: #222;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* ── UTILITY ── */
+    .mt-sm {
+      margin-top: 14px;
+    }
+
+    .mt-md {
+      margin-top: 24px;
+    }
+
+    .mt-lg {
+      margin-top: 36px;
+    }
+
+    .note {
+      font-size: 11px;
+      color: #2a2a2a;
+      text-align: center;
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── RESPONSIVE ── */
+
+    /* ── Tablet (≤ 768px) ── */
+    @media (max-width: 768px) {
+
+      /* Nav */
+      .portfolio-nav {
+        gap: 20px;
+        padding: 18px 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .portfolio-nav a {
+        font-size: 13px;
+      }
+
+      /* Sections */
+      .section {
+        padding: 48px 20px;
+      }
+
+      .mockup-section {
+        padding: 48px 20px;
+      }
+
+      /* Hero */
+      #hero {
+        padding: 48px 20px 36px;
+      }
+
+      #hero::after {
+        display: none;
+      }
+
+      .hero-name {
+        font-size: clamp(48px, 14vw, 80px);
+      }
+
+      .hero-sub {
+        font-size: 14px;
+        letter-spacing: 2px;
+      }
+
+      .h1 {
+        font-size: clamp(30px, 7vw, 48px);
+      }
+
+      .lead {
+        font-size: 16px;
+      }
+
+      /* Grids → single column */
+      .g2,
+      .g3,
+      .g4 {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .proc-strip {
+        grid-template-columns: 1fr 1fr;
+        gap: 2px;
+      }
+
+      .step:first-child {
+        border-radius: 10px 0 0 10px;
+      }
+
+      .step:last-child {
+        border-radius: 0 10px 10px 0;
+      }
+
+      .wf-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .ui-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .heuristic-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .findings-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .rm-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .flow-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Competitor cards */
+      .comp-card {
+        padding: 16px;
+      }
+
+      /* Empathy map */
+      .em-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Persona */
+      .persona-card {
+        padding: 16px;
+      }
+
+      /* IA branches */
+      .ia-branches {
+        grid-template-columns: repeat(3, 1fr) !important;
+      }
+
+      /* DS comp row */
+      .ds-comp-row {
+        flex-wrap: wrap;
+      }
+
+      /* Proto box */
+      .proto-box {
+        padding: 24px 20px;
+      }
+
+      /* Phone mockups — keep scrollable, just shrink phones slightly */
+      .mockup-scroll {
+        gap: 20px;
+        padding-bottom: 16px;
+      }
+
+      .phone-frame {
+        width: 160px;
+        height: 340px;
+        border-radius: 30px;
+      }
+
+      .phone-frame[style*="width:220px"] {
+        width: 178px !important;
+        height: 374px !important;
+        border-radius: 34px !important;
+      }
+    }
+
+    /* ── Small phone (≤ 480px) ── */
+    @media (max-width: 480px) {
+
+      /* Nav */
+      .portfolio-nav {
+        gap: 14px;
+        padding: 14px 12px;
+      }
+
+      .portfolio-nav a {
+        font-size: 11px;
+      }
+
+      /* Hero */
+      .hero-name {
+        font-size: clamp(34px, 15vw, 54px);
+        letter-spacing: 2px;
+      }
+
+      .hero-sub {
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        margin-bottom: 24px;
+      }
+
+      .h1 {
+        font-size: clamp(24px, 8vw, 32px);
+      }
+
+      .lead {
+        font-size: 15px;
+      }
+
+      /* Stat grid → 1 col */
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Proc strip → 1 col */
+      .proc-strip {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+
+      .step:first-child {
+        border-radius: 10px 10px 0 0;
+      }
+
+      .step:last-child {
+        border-radius: 0 0 10px 10px;
+      }
+
+      /* Wireframe grid */
+      .wf-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* UI Grid */
+      .ui-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      /* Roadmap */
+      .rm-grid {
+        grid-template-columns: 1fr;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .rm-box[style] {
+        border-left: none !important;
+        border-right: none !important;
+        border-top: 1px solid var(--surface2) !important;
+      }
+
+      /* Phone mockups */
+      .phone-frame {
+        width: 130px;
+        height: 280px;
+        border-radius: 24px;
+      }
+
+      .phone-frame[style*="width:220px"] {
+        width: 146px !important;
+        height: 310px !important;
+        border-radius: 28px !important;
+      }
+
+      /* DS colors */
+      .ds-colors {
+        gap: 6px;
+        justify-content: center;
+      }
+
+      .ds-sw {
+        width: 38px;
+        height: 38px;
+      }
+
+      /* Sections padding */
+      .section {
+        padding: 32px 16px;
+      }
+
+      .mockup-section {
+        padding: 32px 16px;
+      }
+
+      #hero {
+        padding: 32px 16px 24px;
+      }
+
+      .card, .card-accent, .persona-card, .comp-card {
+        padding: 16px;
+      }
+
+      .li, .p-pain, .em-i {
+        font-size: 13px; /* Slightly larger for mobile readability */
+      }
+    }
+
+    /* ── PHONE MOCKUPS ── */
+    .mockup-section {
+      background: #050505;
+      padding: 80px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mockup-scroll {
+      display: flex;
+      gap: 32px;
+      overflow-x: auto;
+      padding: 0 0 24px;
+      scrollbar-width: thin;
+      scrollbar-color: #222 transparent;
+      margin-top: 40px;
+      align-items: flex-end;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .mockup-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .mockup-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .mockup-scroll::-webkit-scrollbar-thumb {
+      background: #222;
+      border-radius: 4px;
+    }
+
+    .phone-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+      scroll-snap-align: center;
+    }
+
+    .phone-label {
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #333;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .phone-frame {
+      width: 200px;
+      height: 420px;
+      background: #111;
+      border-radius: 36px;
+      border: 2px solid #2a2a2a;
+      position: relative;
+      box-shadow:
+        0 0 0 1px #1a1a1a,
+        0 30px 60px rgba(0, 0, 0, 0.7),
+        inset 0 0 0 1px #0f0f0f;
+      overflow: visible;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .phone-frame:hover {
+      transform: translateY(-6px);
+      box-shadow:
+        0 0 0 1px #2a2a2a,
+        0 40px 80px rgba(0, 0, 0, 0.8),
+        inset 0 0 0 1px #0f0f0f;
+    }
+
+    /* Side buttons */
+    .phone-frame::before {
+      content: '';
+      position: absolute;
+      right: -4px;
+      top: 80px;
+      width: 3px;
+      height: 50px;
+      background: #222;
+      border-radius: 0 3px 3px 0;
+      box-shadow: 0 70px 0 #222;
+    }
+
+    .phone-frame::after {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 70px;
+      width: 3px;
+      height: 32px;
+      background: #222;
+      border-radius: 3px 0 0 3px;
+      box-shadow: 0 42px 0 #222, 0 84px 0 #222;
+    }
+
+    .phone-notch {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 22px;
+      background: #111;
+      border-radius: 12px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .notch-cam {
+      width: 8px;
+      height: 8px;
+      background: #0d0d0d;
+      border-radius: 50%;
+      border: 1px solid #1e1e1e;
+    }
+
+    .notch-speaker {
+      width: 24px;
+      height: 3px;
+      background: #0d0d0d;
+      border-radius: 2px;
+    }
+
+    .phone-home {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: #2a2a2a;
+      border-radius: 3px;
+      z-index: 10;
+    }
+
+    .phone-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 34px;
+      overflow: hidden;
+      cursor: pointer;
+      background: #0a0a0a;
+    }
+
+    .phone-screen input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .phone-screen-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: none;
+      border-radius: 34px;
+    }
+
+    .phone-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px;
+      pointer-events: none;
+    }
+
+    .phone-placeholder-icon {
+      font-size: 22px;
+      opacity: 0.2;
+    }
+
+    .phone-placeholder-text {
+      font-size: 9px;
+      color: #333;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    .phone-screen:hover .phone-placeholder-icon {
+      opacity: 0.4;
+    }
+
+    .phone-caption {
+      font-size: 10px;
+      color: var(--muted);
+      text-align: center;
+      max-width: 160px;
+      line-height: 1.6;
+    }
+
+    /* ── PORTFOLIO NAV ── */
+    .portfolio-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      animation: navFadeDown 0.8s ease forwards;
+      position: sticky;
+      top: 0;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1000;
+    }
+
+    @keyframes navFadeDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .portfolio-nav a {
+      text-decoration: none;
+      color: #888;
+      font-family: 'Inter', 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      transition: color 0.3s ease;
+    }
+
+    .portfolio-nav a:hover {
+      color: #f5c518;
+    }
+
+    .portfolio-nav a.nav-active {
+      color: #f5c518;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="portfolio-nav">
+    <a href="portfolio.html">Home</a>
+    <a href="portfolio.html#projects-anchor">Projects</a>
+    <a href="art.html">Art Gallery</a>
+    <a href="portfolio.html#contact-anchor">Contacts</a>
+  </nav>
+
+  <!-- ════════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="inner">
+      <div class="eyebrow">
+        <div class="dot"></div>
+        <span>UX Case Study</span>
+        <span>·</span>
+
+      </div>
+      <div class="hero-name">
+        ZUDIO APP<br>
+
+      </div>
+      <div class="hero-sub">Wireframe Design &amp; Innovation</div>
+      <div class="pills">
+        <span class="pill">UI / UX Design</span>
+        <span class="pill">Mobile App</span>
+        <span class="pill">E-Commerce</span>
+        <span class="pill">Fashion Retail</span>
+        <span class="pill">India · Tier 2 Focus</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+     01 BRIEF
+════════════════════════════════════════ -->
+  <section class="section">
+    <div class="inner">
+      <div class="tag">01 — Brief</div>
+      <div class="h1">The <span class="w">Opportunity</span></div>
+      <p class="lead">Zudio is India's fastest-growing value fashion brand under Tata Group — yet it has zero digital
+        shopping presence. With e-commerce projected to hit USD 200 billion by 2026, this gap represents a massive
+        untapped market.</p>
+
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-n">95%</div>
+          <div class="stat-l">of purchases expected to shift online by 2040</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-n">$200B</div>
+          <div class="stat-l">Indian e-commerce market size projected by 2026</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-n">0</div>
+          <div class="stat-l">Zudio's current digital shopping touchpoints</div>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="tag">Brand</div>
+          <div class="h2">Zudio</div>
+          <p style="font-size:13px;color:var(--muted);line-height:1.75;">Tata Group's Trent Limited value fashion retail
+            chain targeting youth and families across tier 1 &amp; 2 Indian cities. Known for affordable, trend-driven
+            clothing in a premium-feeling retail environment.</p>
+        </div>
+        <div class="card">
+          <div class="tag">Project</div>
+          <div class="h2">Design a Mobile App</div>
+          <p style="font-size:13px;color:var(--muted);line-height:1.75;">From research to high-fidelity wireframes —
+            covering discovery, shopping, virtual try-on, store locator, and omnichannel features for Zudio's first
+            digital shopping experience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+     02 PROBLEM STATEMENT
+════════════════════════════════════════ -->
+  <section class="section">
+    <div class="inner">
+      <div class="tag">02 — Problem Statement</div>
+      <div class="h1">Defining the <span class="w">Gap</span></div>
+      <p class="lead">Through interviews and market research, a clear accessibility gap emerged. Zudio's
+        physical-store-only model fails to serve its growing digital audience.</p>
+
+      <div class="prob-box">
+        <div class="prob-q">"Users browse in-store but lack knowledge of stock availability — while remote users cannot
+          access the brand at all."</div>
+        <div class="prob-b">Zudio's current model emphasizes physical stores, excluding customers outside store
+          catchments and failing to capture digital-first engagement. Competitors like Myntra and Ajio dominate with
+          superior UX, while Zudio remains inaccessible beyond its store walls.</div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="tag" style="margin-bottom:14px;">Pain Points Identified</div>
+          <div class="li">No real-time stock visibility before visiting the store</div>
+          <div class="li">40+ min travel wasted on out-of-stock trips</div>
+          <div class="li">No wishlist or save-for-later feature exists</div>
+          <div class="li">No size guide or product details accessible online</div>
+          <div class="li">Competitors (Myntra, Ajio) are far more convenient</div>
+        </div>
+        <div class="card">
+          <div class="tag" style="margin-bottom:14px;">How Might We…</div>
+          <div class="li">How might we bring Zudio's inventory online?</div>
+          <div class="li">How might we enable discovery without a store visit?</div>
+          <div class="li">How might we reduce returns via better sizing tools?</div>
+          <div class="li">How might we create a frictionless checkout?</div>
+          <div class="li">How might we connect online &amp; offline shopping?</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+     03 DESIGN PROCESS
+════════════════════════════════════════ -->
+  <section class="section">
+    <div class="inner">
+      <div class="tag">03 — Design Process</div>
+      <div class="h1">The <span class="w">Methodology</span></div>
+      <p class="lead">A structured 5-phase approach — from discovery to tested high-fidelity prototypes.</p>
+
+      <div class="proc-strip">
+        <div class="step">
+          <div class="step-n">01</div>
+          <div class="step-l">Identify</div>
+          <div class="step-d">User, market &amp; product study to understand the landscape</div>
+        </div>
+        <div class="step">
+          <div class="step-n">02</div>
+          <div class="step-l">Define</div>
+          <div class="step-d">Identifying the gap and defining core problem statements</div>
+        </div>
+        <div class="step">
+          <div class="step-n">03</div>
+          <div class="step-l">Ideate</div>
+          <div class="step-d">Brainstorming, trigger words &amp; innovation frameworks</div>
+        </div>
+        <div class="step">
+          <div class="step-n">04</div>
+          <div class="step-l">Prototype</div>
+          <div class="step-d">Architecture, tech stack, and high-fidelity visuals</div>
+        </div>
+        <div class="step">
+          <div class="step-n">05</div>
+          <div class="step-l">Test</div>
+          <div class="step-d">Heuristic evaluation against Nielsen's 10 principles</div>
+        </div>
+      </div>
+
+      <div class="card mt-md">
+        <div class="tag" style="margin-bottom:16px;">Ideation — Key Innovation Triggers</div>
+        <div class="g2" style="margin-top:0;">
+          <div>
+            <div class="li"><strong style="color:var(--body);">Trust →</strong> Photo verification of packed items
+              before dispatch ensures quality</div>
+            <div class="li"><strong style="color:var(--body);">Speed →</strong> Guest Checkout &amp; UPI integration —
+              remove the "Login Wall" barrier</div>
+            <div class="li"><strong style="color:var(--body);">Local →</strong> Localised store inventory visibility so
+              users check before they travel</div>
+            <div class="li"><strong style="color:var(--body);">Ship from Store →</strong> Replace shipping-only with
+              utilising offline store inventory</div>
+          </div>
+          <div>
+            <div class="li"><strong style="color:var(--body);">Event Picks →</strong> Festival &amp; birthday-based
+              recommendations drive impulse buys</div>
+            <div class="li"><strong style="color:var(--body);">Outfit Checker →</strong> Full mix &amp; match replaces
+              basic measurement options</div>
+            <div class="li"><strong style="color:var(--body);">In-Store Mode →</strong> App acts as inventory checker
+              for physical shoppers too</div>
+            <div class="li"><strong style="color:var(--body);">Browse First →</strong> Full catalogue before signup — no
+              forced login at start</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+     04 COMPETITOR ANALYSIS
+════════════════════════════════════════ -->
+  <section class="section">
+    <div class="inner">
+      <div class="tag">04 — Competitor Analysis</div>
+      <div class="h1">The <span class="w">Landscape</span></div>
+      <p class="lead">Mapping Zudio's competitors by segment, strengths, weaknesses — and the strategic insights that
+        shaped our design decisions.</p>
+
+      <div class="g2">
+        <div class="comp-card">
+          <div class="comp-name">Westside</div>
+          <div class="cc-row"><span class="cc-lbl">Segment</span><span class="cc-val">Mid-value curated fashion</span>
+          </div>
+          <div class="cc-row"><span class="cc-lbl">Strengths</span><span class="cc-val">Trendy in-house labels, better
+              quality, strong store aesthetics</span></div>
+          <div class="cc-row"><span class="cc-lbl">Weakness</span><span class="cc-val">Higher prices, not ultra-budget
+              friendly</span></div>
+          <span class="tag-w">Indirect competitor</span>
+          <div class="insight-tag"><strong>Key Insight</strong>Zudio can win on price but needs to match Westside's
+            premium in-app feel to be seen as aspirational, not cheap.</div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-name">Trends (Reliance)</div>
+          <div class="cc-row"><span class="cc-lbl">Segment</span><span class="cc-val">Value fashion</span></div>
+          <div class="cc-row"><span class="cc-lbl">Strengths</span><span class="cc-val">Huge store network, low prices,
+              strong private labels</span></div>
+          <div class="cc-row"><span class="cc-lbl">Weakness</span><span class="cc-val">Inconsistent quality and store
+              experience, weak digital UX</span></div>
+          <span class="tag-w">Direct competitor</span>
+          <div class="insight-tag"><strong>Key Insight</strong>Neither Trends nor Zudio has a strong app — first-mover
+            advantage in the value fashion app space is still open.</div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-name">Max Fashion</div>
+          <div class="cc-row"><span class="cc-lbl">Segment</span><span class="cc-val">Value fashion</span></div>
+          <div class="cc-row"><span class="cc-lbl">Strengths</span><span class="cc-val">Good quality-for-price, strong
+              Western wear, wide assortment</span></div>
+          <div class="cc-row"><span class="cc-lbl">Weakness</span><span class="cc-val">Slightly higher prices, slower
+              trend updates</span></div>
+          <span class="tag-w">Same youth + family segment</span>
+          <div class="insight-tag"><strong>Key Insight</strong>Max has a working app — Zudio must differentiate with
+            features Max lacks: try-on, mix &amp; match, and real-time store stock.</div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-name">Pantaloons</div>
+          <div class="cc-row"><span class="cc-lbl">Segment</span><span class="cc-val">Affordable to mid-value
+              lifestyle</span></div>
+          <div class="cc-row"><span class="cc-lbl">Strengths</span><span class="cc-val">Strong ethnic wear, wide mix,
+              trusted brand name</span></div>
+          <div class="cc-row"><span class="cc-lbl">Weakness</span><span class="cc-val">Higher prices than typical value
+              fashion</span></div>
+          <span class="tag-w">Partial overlap — casual/ethnic</span>
+          <div class="insight-tag"><strong>Key Insight</strong>Pantaloons' filtering &amp; loyalty features can be
+            benchmarked; Zudio's edge is a younger, more impulsive audience who want speed over points.</div>
+        </div>
+      </div>
+
+      <div class="card mt-md">
+        <div class="tag" style="margin-bottom:16px;">Overall Findings</div>
+        <div class="findings-grid">
+          <div class="finding-box">
+            <div class="finding-label">Gap in Market</div>
+            <div class="finding-text">No value-fashion brand has a best-in-class app. The space is wide open for Zudio
+              to own.</div>
+          </div>
+          <div class="finding-box">
+            <div class="finding-label">UX is the Differentiator</div>
+            <div class="finding-text">Higher UX quality directly correlates with market share. An intuitive app creates
+              a real competitive moat.</div>
+          </div>
+          <div class="finding-box">
+            <div class="finding-label">Omnichannel Wins</div>
+            <div class="finding-text">Bridging physical stores with a digital app through click &amp; collect and live
+              stock visibility is completely untapped.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+     05 USER PERSONAS
+════════════════════════════════════════ -->
+  <section class="section">
+    <div class="inner">
+      <div class="tag">05 — User Personas</div>
+      <div class="h1">Who We <span class="w">Design For</span></div>
+      <p class="lead">Three distinct users emerged from 15+ unstructured interviews — each with unique behaviours,
+        goals, and pain points.</p>
+
+      <div class="g3">
+        <!-- Persona 1 -->
+        <div class="persona-card">
+          <div class="p-avatar">
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <rect width="60" height="60" fill="#1c1c1c" />
+              <circle cx="30" cy="22" r="11" fill="#282828" />
+              <ellipse cx="30" cy="50" rx="18" ry="14" fill="#282828" />
+              <circle cx="30" cy="22" r="9" fill="#333" />
+              <text x="30" y="27" font-family="sans-serif" font-size="13" fill="#888" text-anchor="middle"
+                font-weight="600">P</text>
+            </svg>
+          </div>
+          <div class="p-name">Priya, 21</div>
+          <div class="p-role">Budget-Conscious Student</div>
+          <div class="p-stat"><strong>Location:</strong> Coimbatore, Tamil Nadu (Tier 2)</div>
+          <div class="p-stat"><strong>Income:</strong> ₹15,000/month</div>
+          <div class="p-stat"><strong>Occupation:</strong> Design student</div>
+          <div class="p-stat"><strong>Behaviour:</strong> Impulsive, visual-first, social-media driven</div>
+          <hr class="p-divider">
+          <div class="p-pain">Limited budget but wants to stay trendy for college events</div>
+          <div class="p-pain">Visits store only to find her size is unavailable</div>
+          <div class="p-pain">Can't browse collections during late-night study breaks</div>
+          <div class="p-pain">No wishlist to save favourites for later</div>
+          <div class="p-quote">"In 2025 and still no app? Zudio has great stuff but I can't reach it."</div>
+        </div>
+
+        <!-- Persona 2 -->
+        <div class="persona-card">
+          <div class="p-avatar">
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <rect width="60" height="60" fill="#1c1c1c" />
+              <circle cx="30" cy="22" r="11" fill="#282828" />
+              <ellipse cx="30" cy="50" rx="18" ry="14" fill="#282828" />
+              <circle cx="30" cy="22" r="9" fill="#333" />
+              <text x="30" y="27" font-family="sans-serif" font-size="13" fill="#888" text-anchor="middle"
+                font-weight="600">R</text>
+            </svg>
+          </div>
+          <div class="p-name">Rajeesh, 29</div>
+          <div class="p-role">Time-Starved Professional</div>
+          <div class="p-stat"><strong>Location:</strong> Nagpur, Maharashtra (Tier 2)</div>
+          <div class="p-stat"><strong>Income:</strong> ₹45,000/month</div>
+          <div class="p-stat"><strong>Occupation:</strong> IT professional, married</div>
+          <div class="p-stat"><strong>Behaviour:</strong> App-first, efficiency-driven, planner</div>
+          <hr class="p-divider">
+          <div class="p-pain">Only has weekends free — stores are crowded with long queues</div>
+          <div class="p-pain">Can't check stock availability before driving to the store</div>
+          <div class="p-pain">Wasted trips when items turn out to be out of stock</div>
+          <div class="p-pain">No way to get notified when wanted items restock</div>
+          <div class="p-quote">"I'd check inventory at lunch and just pick up on the weekend — if only that was
+            possible."</div>
+        </div>
+
+        <!-- Persona 3 -->
+        <div class="persona-card">
+          <div class="p-avatar">
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <rect width="60" height="60" fill="#1c1c1c" />
+              <circle cx="30" cy="22" r="11" fill="#282828" />
+              <ellipse cx="30" cy="50" rx="18" ry="14" fill="#282828" />
+              <circle cx="30" cy="22" r="9" fill="#333" />
+              <text x="30" y="27" font-family="sans-serif" font-size="13" fill="#888" text-anchor="middle"
+                font-weight="600">K</text>
+            </svg>
+          </div>
+          <div class="p-name">Kavita, 36</div>
+          <div class="p-role">The Family Shopper</div>
+          <div class="p-stat"><strong>Location:</strong> Jaipur, Rajasthan (Tier 2)</div>
+          <div class="p-stat"><strong>Income:</strong> ₹65,000/month (household)</div>
+          <div class="p-stat"><strong>Occupation:</strong> Homemaker, 2 kids (ages 8 &amp; 12)</div>
+          <div class="p-stat"><strong>Behaviour:</strong> Moderate tech user, planner, practical</div>
+          <hr class="p-divider">
+          <div class="p-pain">Shops for entire family — complex to coordinate sizes</div>
+          <div class="p-pain">Kids grow fast; needs to check stock before every visit</div>
+          <div class="p-pain">Seasonal shopping without any planning or wishlist tools</div>
+          <div class="p-pain">Can't remember which store had the better kids' section</div>
+          <div class="p-quote">"Zudio's kidswear is great — I just wish I could plan and order from home."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+     06 EMPATHY MAPPING
+════════════════════════════════════════ -->
+  <section class="section">
+    <div class="inner">
+      <div class="tag">06 — Empathy Mapping</div>
+      <div class="h1">Getting <span class="w">Under the Skin</span></div>
+      <p class="lead">Synthesised from 30+ user quotes — mapped into four quadrants to uncover the core emotional
+        drivers behind user behaviour.</p>
+
+      <div class="em-grid">
+        <div class="em-q" style="border-radius:10px 0 0 0;">
+          <div class="em-l">Says</div>
+          <div class="em-i">"In 2025 and still no proper app? Strange."</div>
+          <div class="em-i">"Myntra is expensive; Zudio is affordable but inaccessible."</div>
+          <div class="em-i">"Store locator is absolutely needed."</div>
+          <div class="em-i">"I like simple UIs — too much clutter puts me off."</div>
+          <div class="em-i">"Would love curated outfit suggestions."</div>
+        </div>
+        <div class="em-q" style="border-radius:0 10px 0 0;">
+          <div class="em-l">Thinks</div>
+          <div class="em-i">Zudio has great stuff but I can't reach it online</div>
+          <div class="em-i">They're losing money by not going digital</div>
+          <div class="em-i">If I could check stock I'd save so much time</div>
+          <div class="em-i">Try-on might be fun — but accuracy matters</div>
+          <div class="em-i">Instagram shows nice things but I can't buy there</div>
+        </div>
+        <div class="em-q" style="border-radius:0 0 0 10px;">
+          <div class="em-l">Does</div>
+          <div class="em-i">Takes 40-min bus rides just to check stock</div>
+          <div class="em-i">Goes to Myntra / Ajio because they're easier</div>
+          <div class="em-i">Visits store only to find sizes unavailable</div>
+          <div class="em-i">Browses Zudio's Instagram but can't purchase</div>
+          <div class="em-i">Shops on crowded weekends despite frustration</div>
+        </div>
+        <div class="em-q" style="border-radius:0 0 10px 0;">
+          <div class="em-l">Feels</div>
+          <div class="em-i">Frustrated by wasted trips and physical effort</div>
+          <div class="em-i">Excited about the idea of a Zudio app</div>
+          <div class="em-i">Anxious about sizing inconsistencies &amp; returns</div>
+          <div class="em-i">Tired of trial rooms — try-on at home sounds good</div>
+          <div class="em-i">Hopeful that fast delivery could change habits</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+     07 INFORMATION ARCHITECTURE
+════════════════════════════════════════ -->
+  <section class="section">
+    <div class="inner">
+      <div class="tag">07 — Information Architecture</div>
+      <div class="h1">How It's <span class="w">Structured</span></div>
+      <p class="lead">A content hierarchy designed around three trigger words: Trust, Speed, and Local — driving every
+        navigational decision.</p>
+
+      <!-- IA image drop zone -->
+      <div class="ia-frame">
+        <div class="ia-frame-header">
+          <div class="ia-frame-dot"></div>
+          <div class="ia-frame-dot"></div>
+          <div class="ia-frame-dot"></div>
+          <div class="ia-frame-title">Information Architecture Diagram</div>
+        </div>
+        <div style="padding: 20px; background: #111; display: flex; justify-content: center;">
+          <img src="ia.png" alt="Information Architecture Diagram"
+            style="max-width: 100%; height: auto; border-radius: 4px;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+     08 DESIGN SYSTEM
+════════════════════════════════════════ -->
+  <section class="section">
+    <div class="inner">
+      <div class="tag">08 — Design System</div>
+      <div class="h1">Visual <span class="w">Language</span></div>
+      <p class="lead">A dark, editorial design system rooted in Zudio's physical brand identity — black surfaces,
+        off-white typography, and grey as the supporting tone.</p>
+
+      <div class="tag" style="margin-top:28px;margin-bottom:12px;">Colour Palette</div>
+      <div class="ds-colors">
+        <div class="ds-sw-wrap">
+          <div class="ds-sw" style="background:#0a0a0a;"></div>
+          <div class="ds-sw-n">Black<br>#0A0A0A</div>
+        </div>
+        <div class="ds-sw-wrap">
+          <div class="ds-sw" style="background:#141414;"></div>
+          <div class="ds-sw-n">Surface<br>#141414</div>
+        </div>
+        <div class="ds-sw-wrap">
+          <div class="ds-sw" style="background:#242424;"></div>
+          <div class="ds-sw-n">Border<br>#242424</div>
+        </div>
+        <div class="ds-sw-wrap">
+          <div class="ds-sw" style="background:#444444;"></div>
+          <div class="ds-sw-n">Muted<br>#444444</div>
+        </div>
+        <div class="ds-sw-wrap">
+          <div class="ds-sw" style="background:#d4d4d4;"></div>
+          <div class="ds-sw-n">Body<br>#D4D4D4</div>
+        </div>
+        <div class="ds-sw-wrap">
+          <div class="ds-sw" style="background:#c8c8c0;"></div>
+          <div class="ds-sw-n">Light<br>#C8C8C0</div>
+        </div>
+        <div class="ds-sw-wrap">
+          <div class="ds-sw" style="background:#f5f5f0;border:1px solid #222;"></div>
+          <div class="ds-sw-n">Heading<br>#F5F5F0</div>
+        </div>
+        <div class="ds-sw-wrap">
+          <div class="ds-sw" style="background:#ffffff;border:1px solid #222;"></div>
+          <div class="ds-sw-n">White<br>#FFFFFF</div>
+        </div>
+      </div>
+
+      <div class="tag" style="margin-bottom:12px;">Typography — Bebas Neue (Display) + DM Sans (Body)</div>
+      <div class="ds-type-box">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--heading);letter-spacing:2px;">Aa —
+          Display / Bebas Neue</div>
+        <div
+          style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--heading);margin-top:8px;letter-spacing:1px;">
+          Aa — Heading / Bebas Neue</div>
+        <div style="font-size:17px;color:var(--body);margin-top:8px;line-height:1.75;">Aa — Body copy / DM Sans 400 —
+          designed for clarity at small sizes across all devices</div>
+        <div
+          style="font-size:10px;color:var(--muted);margin-top:8px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;">
+          AA — Caption / DM Sans 600 Uppercase</div>
+      </div>
+
+      <div class="tag" style="margin-top:24px;margin-bottom:12px;">Components</div>
+      <div class="card">
+        <div class="ds-comp-row">
+          <button class="btn-p">Add to Cart</button>
+          <button class="btn-g">Virtual Try-On</button>
+          <span class="chip">Women</span>
+          <span class="chip">New In</span>
+          <span class="chip">₹499</span>
+          <div class="input-m">Search Zudio...</div>
+        </div>
+        <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;align-items:center;">
+          <div
+            style="background:var(--surface2);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px;border:1px solid var(--border);">
+            <div style="width:34px;height:34px;background:var(--border);border-radius:5px;"></div>
+            <div>
+              <div style="font-size:12px;color:var(--heading);font-weight:500;">Floral Midi Dress</div>
+              <div style="font-size:11px;color:var(--muted);">Size M · ₹799</div>
+            </div>
+          </div>
+          <div style="background:var(--surface2);border-radius:8px;padding:10px 14px;border:1px solid var(--body);">
+            <div
+              style="font-size:9px;color:var(--white);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;font-weight:600;">
+              In Stock</div>
+            <div style="font-size:12px;color:var(--heading);">Phoenix Mall · 2.1 km</div>
+          </div>
+          <div
+            style="background:var(--white);border-radius:7px;padding:8px 14px;display:flex;align-items:center;gap:6px;">
+            <div style="width:7px;height:7px;background:var(--black);border-radius:50%;"></div>
+            <span style="font-size:10px;font-weight:700;color:var(--black);letter-spacing:0.5px;">85% MATCH</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+     09 WIREFRAMES
+════════════════════════════════════════ -->
+  <section class="section">
+    <div class="inner">
+      <div class="tag">09 — Low Fidelity Wireframes</div>
+      <div class="h1">Skeleton <span class="w">Screens</span></div>
+      <p class="lead">Low-fidelity wireframes establishing layout hierarchy, navigation patterns, and content flow.
+        Click each frame to upload your wireframe images.</p>
+
+      <div class="wf-grid">
+        <!-- WF 1 -->
+        <div class="wf-screen">
+          <div class="wf-bar">
+            <div class="wf-dot2"></div>
+            <div class="wf-sn">Onboarding</div>
+          </div>
+          <div class="wf-body">
+            <div class="img-slot" style="height:400px;" onclick="triggerUpload('wf1')">
+              <input type="file" id="wf1-input" accept="image/*" onchange="loadImg('wf1',event)" style="display:none">
+              <span>Onboarding<br>wireframe</span>
+              <img id="wf1-img" alt="">
+            </div>
+          </div>
+          <div class="wf-nav">
+            <div class="wf-nd a"></div>
+            <div class="wf-nd"></div>
+            <div class="wf-nd"></div>
+            <div class="wf-nd"></div>
+          </div>
+        </div>
+        <!-- WF 2 -->
+        <div class="wf-screen">
+          <div class="wf-bar">
+            <div class="wf-dot2"></div>
+            <div class="wf-sn">Home</div>
+          </div>
+          <div class="wf-body">
+            <div class="img-slot" style="height:400px;" onclick="triggerUpload('wf2')">
+              <input type="file" id="wf2-input" accept="image/*" onchange="loadImg('wf2',event)" style="display:none">
+              <span>Home screen<br>wireframe</span>
+              <img id="wf2-img" alt="">
+            </div>
+          </div>
+          <div class="wf-nav">
+            <div class="wf-nd a"></div>
+            <div class="wf-nd"></div>
+            <div class="wf-nd"></div>
+            <div class="wf-nd"></div>
+            <div class="wf-nd"></div>
+          </div>
+        </div>
+        <!-- WF 3 -->
+        <div class="wf-screen">
+          <div class="wf-bar">
+            <div class="wf-dot2"></div>
+            <div class="wf-sn">Product Detail</div>
+          </div>
+          <div class="wf-body">
+            <div class="img-slot" style="height:400px;" onclick="triggerUpload('wf3')">
+              <input type="file" id="wf3-input" accept="image/*" onchange="loadImg('wf3',event)" style="display:none">
+              <span>Product detail<br>wireframe</span>
+              <img id="wf3-img" alt="">
+            </div>
+          </div>
+          <div class="wf-nav">
+            <div class="wf-nd"></div>
+            <div class="wf-nd a"></div>
+            <div class="wf-nd"></div>
+            <div class="wf-nd"></div>
+            <div class="wf-nd"></div>
+          </div>
+        </div>
+        <!-- WF 4 -->
+        <div class="wf-screen">
+          <div class="wf-bar">
+            <div class="wf-dot2"></div>
+            <div class="wf-sn">Checkout</div>
+          </div>
+          <div class="wf-body">
+            <div class="img-slot" style="height:400px;" onclick="triggerUpload('wf4')">
+              <input type="file" id="wf4-input" accept="image/*" onchange="loadImg('wf4',event)" style="display:none">
+              <span>Checkout<br>wireframe</span>
+              <img id="wf4-img" alt="">
+            </div>
+          </div>
+          <div class="wf-nav">
+            <div class="wf-nd"></div>
+            <div class="wf-nd"></div>
+            <div class="wf-nd"></div>
+            <div class="wf-nd a"></div>
+            <div class="wf-nd"></div>
+          </div>
+        </div>
+      </div>
+      <p class="note">↑ Click any frame to upload your wireframe images</p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+     10 UI SCREENS
+════════════════════════════════════════ -->
+  <section class="section">
+    <div class="inner">
+      <div class="tag">10 — High Fidelity UI Screens</div>
+      <div class="h1">The Final <span class="w">Experience</span></div>
+      <p class="lead">High-fidelity screens implementing the full design system across nine core user journeys. Click
+        each frame to upload your Figma exports.</p>
+
+      <div class="ui-grid">
+        <div class="ui-screen">
+          <div class="ui-hdr">
+            <div class="ui-htag">Screen 01</div>
+            <div class="ui-hdesc">Home</div>
+          </div>
+          <div class="ui-body">
+            <div class="img-slot" style="height:600px;">
+              <img src="home.png" alt="Home Screen" style="display: block;">
+            </div>
+            <div style="font-size:10px;color:#2a2a2a;margin-top:8px;line-height:1.5;">Browse tabs · Search · Category
+              carousel · Product grid</div>
+          </div>
+        </div>
+        <div class="ui-screen">
+          <div class="ui-hdr">
+            <div class="ui-htag">Screen 02</div>
+            <div class="ui-hdesc">Search</div>
+          </div>
+          <div class="ui-body">
+            <div class="img-slot" style="height:600px;">
+              <img src="search.png" alt="Search Screen" style="display: block;">
+            </div>
+            <div style="font-size:10px;color:#2a2a2a;margin-top:8px;line-height:1.5;">Search results · Filters ·
+              Trending keywords · Result sorting</div>
+          </div>
+        </div>
+        <div class="ui-screen">
+          <div class="ui-hdr">
+            <div class="ui-htag">Screen 03</div>
+            <div class="ui-hdesc">Mix &amp; Match Studio</div>
+          </div>
+          <div class="ui-body">
+            <div class="img-slot" style="height:600px;">
+              <img src="mix n match.png" alt="Mix and Match Screen" style="display: block;">
+            </div>
+            <div style="font-size:10px;color:#2a2a2a;margin-top:8px;line-height:1.5;">Top / Bottom / Shoes selector ·
+              Style match % · Add all</div>
+          </div>
+        </div>
+        <div class="ui-screen">
+          <div class="ui-hdr">
+            <div class="ui-htag">Screen 04</div>
+            <div class="ui-hdesc">Cart</div>
+          </div>
+          <div class="ui-body">
+            <div class="img-slot" style="height:600px;">
+              <img src="cart.png" alt="Cart screen" style="display: block;">
+            </div>
+            <div style="font-size:10px;color:#2a2a2a;margin-top:8px;line-height:1.5;">Map · Store list · In-stock badge
+              · Click &amp; collect CTA</div>
+          </div>
+        </div>
+        <div class="ui-screen">
+          <div class="ui-hdr">
+            <div class="ui-htag">Screen 05</div>
+            <div class="ui-hdesc">Checkout</div>
+          </div>
+          <div class="ui-body">
+            <div class="img-slot" style="height:600px;">
+              <img src="cart.png" alt="Cart screen" style="display: block;">
+            </div>
+            <div style="font-size:10px;color:#2a2a2a;margin-top:8px;line-height:1.5;">Cart summary · Price breakdown ·
+              UPI payment · Guest mode</div>
+          </div>
+        </div>
+        <div class="ui-screen">
+          <div class="ui-hdr">
+            <div class="ui-htag">Screen 06</div>
+            <div class="ui-hdesc">Order Tracking</div>
+          </div>
+          <div class="ui-body">
+            <div class="img-slot" style="height:600px;" onclick="triggerUpload('ui6')">
+              <input type="file" id="ui6-input" accept="image/*" onchange="loadImg('ui6',event)" style="display:none">
+              <span>Order Tracking<br>high-fi</span>
+              <img id="ui6-img" alt="">
+            </div>
+            <div style="font-size:10px;color:#2a2a2a;margin-top:8px;line-height:1.5;">Live status · Map view · Delivery
+              details</div>
+          </div>
+        </div>
+        <div class="ui-screen">
+          <div class="ui-hdr">
+            <div class="ui-htag">Screen 07</div>
+            <div class="ui-hdesc">User Settings</div>
+          </div>
+          <div class="ui-body">
+            <div class="img-slot" style="height:600px;" onclick="triggerUpload('ui7')">
+              <input type="file" id="ui7-input" accept="image/*" onchange="loadImg('ui7',event)" style="display:none">
+              <span>User settings<br>high-fi</span>
+              <img id="ui7-img" alt="">
+            </div>
+            <div style="font-size:10px;color:#2a2a2a;margin-top:8px;line-height:1.5;">Profile management · Notification
+              settings</div>
+          </div>
+        </div>
+        <div class="ui-screen">
+          <div class="ui-hdr">
+            <div class="ui-htag">Screen 08</div>
+            <div class="ui-hdesc">Advanced Filters</div>
+          </div>
+          <div class="ui-body">
+            <div class="img-slot" style="height:600px;" onclick="triggerUpload('ui8')">
+              <input type="file" id="ui8-input" accept="image/*" onchange="loadImg('ui8',event)" style="display:none">
+              <span>Advanced filters<br>high-fi</span>
+              <img id="ui8-img" alt="">
+            </div>
+            <div style="font-size:10px;color:#2a2a2a;margin-top:8px;line-height:1.5;">Refine search · Size / Color /
+              Price filters</div>
+          </div>
+        </div>
+        <div class="ui-screen">
+          <div class="ui-hdr">
+            <div class="ui-htag">Screen 09</div>
+            <div class="ui-hdesc">Loyalty Rewards</div>
+          </div>
+          <div class="ui-body">
+            <div class="img-slot" style="height:600px;" onclick="triggerUpload('ui9')">
+              <input type="file" id="ui9-input" accept="image/*" onchange="loadImg('ui9',event)" style="display:none">
+              <span>Loyalty rewards<br>high-fi</span>
+              <img id="ui9-img" alt="">
+            </div>
+            <div style="font-size:10px;color:#2a2a2a;margin-top:8px;line-height:1.5;">Points balance · Coupons ·
+              Redemption history</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">↑ Click any frame to upload your high-fidelity Figma screen exports</p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+     11 MOBILE MOCKUPS
+════════════════════════════════════════ -->
+  <section class="mockup-section">
+    <div class="inner">
+      <div class="tag">11 — Mobile Mockups</div>
+      <div class="h1">Screens in <span class="w">Context</span></div>
+      <p class="lead">Visualising the final UI inside a phone frame. Click any screen to upload your design.</p>
+
+      <div class="mockup-scroll">
+
+        <!-- Phone 1 -->
+        <div class="phone-wrap">
+          <div class="phone-label">Screen 01</div>
+          <div class="phone-frame">
+            <div class="phone-notch">
+              <div class="notch-speaker"></div>
+              <div class="notch-cam"></div>
+            </div>
+            <div class="phone-screen" onclick="document.getElementById('mock1-input').click()">
+              <input type="file" id="mock1-input" accept="image/*" onchange="loadMock('mock1',event)"
+                style="display:none">
+              <img id="mock1-img" class="phone-screen-img" alt="">
+              <div class="phone-placeholder">
+                <div class="phone-placeholder-icon">📱</div>
+                <div class="phone-placeholder-text">Tap to upload<br>screen</div>
+              </div>
+            </div>
+            <div class="phone-home"></div>
+          </div>
+          <div class="phone-caption">Home / Discovery</div>
+        </div>
+
+        <!-- Phone 2 -->
+        <div class="phone-wrap" style="margin-top:-30px">
+          <div class="phone-label">Screen 02</div>
+          <div class="phone-frame">
+            <div class="phone-notch">
+              <div class="notch-speaker"></div>
+              <div class="notch-cam"></div>
+            </div>
+            <div class="phone-screen" onclick="document.getElementById('mock2-input').click()">
+              <input type="file" id="mock2-input" accept="image/*" onchange="loadMock('mock2',event)"
+                style="display:none">
+              <img id="mock2-img" class="phone-screen-img" alt="">
+              <div class="phone-placeholder">
+                <div class="phone-placeholder-icon">📱</div>
+                <div class="phone-placeholder-text">Tap to upload<br>screen</div>
+              </div>
+            </div>
+            <div class="phone-home"></div>
+          </div>
+          <div class="phone-caption">Product Detail</div>
+        </div>
+
+        <!-- Phone 3 (center / hero) -->
+        <div class="phone-wrap">
+          <div class="phone-label">Screen 03</div>
+          <div class="phone-frame"
+            style="width:220px;height:460px;border-radius:40px;box-shadow:0 0 0 1px #2a2a2a,0 50px 100px rgba(200,150,0,0.12),0 30px 60px rgba(0,0,0,0.8);">
+            <div class="phone-notch">
+              <div class="notch-speaker"></div>
+              <div class="notch-cam"></div>
+            </div>
+            <div class="phone-screen" style="border-radius:38px;"
+              onclick="document.getElementById('mock3-input').click()">
+              <input type="file" id="mock3-input" accept="image/*" onchange="loadMock('mock3',event)"
+                style="display:none">
+              <img id="mock3-img" class="phone-screen-img" alt="">
+              <div class="phone-placeholder">
+                <div class="phone-placeholder-icon">⭐</div>
+                <div class="phone-placeholder-text">Key screen<br>tap to upload</div>
+              </div>
+            </div>
+            <div class="phone-home"></div>
+          </div>
+          <div class="phone-caption">Category / Filter</div>
+        </div>
+
+        <!-- Phone 4 -->
+        <div class="phone-wrap" style="margin-top:-30px">
+          <div class="phone-label">Screen 04</div>
+          <div class="phone-frame">
+            <div class="phone-notch">
+              <div class="notch-speaker"></div>
+              <div class="notch-cam"></div>
+            </div>
+            <div class="phone-screen" onclick="document.getElementById('mock4-input').click()">
+              <input type="file" id="mock4-input" accept="image/*" onchange="loadMock('mock4',event)"
+                style="display:none">
+              <img id="mock4-img" class="phone-screen-img" alt="">
+              <div class="phone-placeholder">
+                <div class="phone-placeholder-icon">📱</div>
+                <div class="phone-placeholder-text">Tap to upload<br>screen</div>
+              </div>
+            </div>
+            <div class="phone-home"></div>
+          </div>
+          <div class="phone-caption">Cart + Checkout</div>
+        </div>
+
+        <!-- Phone 5 -->
+        <div class="phone-wrap">
+          <div class="phone-label">Screen 05</div>
+          <div class="phone-frame">
+            <div class="phone-notch">
+              <div class="notch-speaker"></div>
+              <div class="notch-cam"></div>
+            </div>
+            <div class="phone-screen" onclick="document.getElementById('mock5-input').click()">
+              <input type="file" id="mock5-input" accept="image/*" onchange="loadMock('mock5',event)"
+                style="display:none">
+              <img id="mock5-img" class="phone-screen-img" alt="">
+              <div class="phone-placeholder">
+                <div class="phone-placeholder-icon">📱</div>
+                <div class="phone-placeholder-text">Tap to upload<br>screen</div>
+              </div>
+            </div>
+            <div class="phone-home"></div>
+          </div>
+          <div class="phone-caption">Profile / Wishlist</div>
+        </div>
+
+      </div>
+      <p class="note">↑ Scroll horizontally · Click any phone to upload your screen image</p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+     12 PROTOTYPE
+════════════════════════════════════════ -->
+  <section class="section">
+    <div class="inner">
+      <div class="tag">11 — Prototype</div>
+      <div class="h1">See It <span class="w">In Action</span></div>
+      <p class="lead">An interactive prototype demonstrating the three core user flows — built to validate design
+        decisions and surface usability issues before development.</p>
+
+      <div class="flow-grid">
+        <div class="flow-card">
+          <div class="flow-n">01</div>
+          <div class="flow-l">Discovery Flow</div>
+          <div class="flow-d">Onboarding → Home → Browse category → Filter → Product detail → Wishlist save</div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-n">02</div>
+          <div class="flow-l">Try &amp; Buy Flow</div>
+          <div class="flow-d">Product detail → Virtual try-on → Mix &amp; Match → Add to cart → Guest checkout → UPI pay
+          </div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-n">03</div>
+          <div class="flow-l">Store Flow</div>
+          <div class="flow-d">Store locator → Live stock check → Click &amp; collect → Reserve → Navigate to store</div>
+        </div>
+      </div>
+
+      <div class="proto-box">
+        <div class="proto-icon">▶</div>
+        <div class="proto-title">Interactive Figma Prototype</div>
+        <div class="proto-desc">The clickable prototype covers all three key user journeys across 20+ connected screens.
+          Open it in Figma to interact with the full flow.</div>
+        <!-- Replace href="#" with your actual Figma prototype URL -->
+        <a href="#" class="proto-btn" target="_blank" rel="noopener">Open Prototype →</a>
+        <div class="proto-note">Replace the link above with your actual Figma prototype URL</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="tag" style="margin-bottom:16px;">Heuristic Evaluation — Nielsen's 10 Principles</div>
+      <div class="heuristic-grid">
+        <div class="h-box">
+          <div class="h-label">Visibility of Status</div>
+          <div class="h-text">Location, cart count &amp; outfit match % always visible to the user</div>
+        </div>
+        <div class="h-box">
+          <div class="h-label">Real World Match</div>
+          <div class="h-text">Mix &amp; Match mirrors how people actually dress (top–bottom–shoes)</div>
+        </div>
+        <div class="h-box">
+          <div class="h-label">User Control</div>
+          <div class="h-text">Edit cart, remove items, adjust profile without breaking flow</div>
+        </div>
+        <div class="h-box">
+          <div class="h-label">Consistency</div>
+          <div class="h-text">Uniform card styles, typography, and buttons across all screens</div>
+        </div>
+        <div class="h-box">
+          <div class="h-label">Recognition over Recall</div>
+          <div class="h-text">Image-first selection lets users choose visually, not from memory</div>
+        </div>
+        <div class="h-box">
+          <div class="h-label">Aesthetic &amp; Minimal</div>
+          <div class="h-text">Large product images, clean cards, attention stays on the clothes</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="tag" style="margin-bottom:16px;">Future Roadmap</div>
+      <div class="rm-grid">
+        <div class="rm-box">
+          <div class="rm-n">01</div>
+          <div class="rm-l">MVP Launch</div>
+          <div class="rm-d">Discovery, store locator, basic checkout, guest browsing</div>
+        </div>
+        <div class="rm-box" style="border-left:1px solid var(--surface2);border-right:1px solid var(--surface2);">
+          <div class="rm-n">02</div>
+          <div class="rm-l">User Testing</div>
+          <div class="rm-d">Usability rounds, A/B testing key flows, iteration sprints</div>
+        </div>
+        <div class="rm-box" style="border-right:1px solid var(--surface2);">
+          <div class="rm-n">03</div>
+          <div class="rm-l">User Feedback</div>
+          <div class="rm-d">Real data integration, rating system, restock alerts live</div>
+        </div>
+        <div class="rm-box">
+          <div class="rm-n">04</div>
+          <div class="rm-l">Innovation</div>
+          <div class="rm-d">Virtual try-on, Mix &amp; Match AI, loyalty programme, events</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+
+  <script>
+    /* ── IA image upload ── */
+    function loadIA(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        const preview = document.getElementById('ia-preview');
+        const dropText = document.querySelector('.ia-drop-text');
+        const dropIcon = document.querySelector('.ia-drop-icon');
+        preview.src = ev.target.result;
+        preview.style.display = 'block';
+        dropText.style.display = 'none';
+        dropIcon.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    /* ── Generic image slot upload ── */
+    function triggerUpload(id) {
+      document.getElementById(id + '-input').click();
+    }
+
+    function loadImg(id, e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        const img = document.getElementById(id + '-img');
+        const slot = img.parentElement;
+        const label = slot.querySelector('span');
+        img.src = ev.target.result;
+        img.style.display = 'block';
+        if (label) label.style.display = 'none';
+        slot.style.border = '1px solid #222';
+        slot.style.background = '#000'; // Black background for contain-fit "bezel" look
+      };
+      reader.readAsDataURL(file);
+    }
+
+    /* ── Phone mockup image upload ── */
+    function loadMock(id, e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        const img = document.getElementById(id + '-img');
+        const placeholder = img.parentElement.querySelector('.phone-placeholder');
+        img.src = ev.target.result;
+        img.style.display = 'block';
+        if (placeholder) placeholder.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    /* ── Drag and drop for IA ── */
+    const iaZone = document.getElementById('ia-drop');
+    iaZone.addEventListener('dragover', e => { e.preventDefault(); iaZone.style.borderColor = '#888'; });
+    iaZone.addEventListener('dragleave', () => { iaZone.style.borderColor = ''; });
+    iaZone.addEventListener('drop', e => {
+      e.preventDefault();
+      iaZone.style.borderColor = '';
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          const preview = document.getElementById('ia-preview');
+          preview.src = ev.target.result;
+          preview.style.display = 'block';
+          document.querySelector('.ia-drop-text').style.display = 'none';
+          document.querySelector('.ia-drop-icon').style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+
+</html>

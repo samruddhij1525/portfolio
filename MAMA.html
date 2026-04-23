@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAMA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #FF5C00;
+            --text-navy: #001B44;
+            --text-grey: #555555;
+            --dot-color: #ecc299;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .serif {
+            font-family: Georgia, 'Playfair Display', serif;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            padding: 30px 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-grey);
+            font-size: 18px;
+            font-weight: 600;
+            transition: 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-orange);
+        }
+
+        .active-link {
+            color: var(--primary-orange) !important;
+            font-weight: 700;
+        }
+
+        /* Entrance Animation */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .anim-nav {
+            animation: fadeInDown 0.8s ease forwards;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-[#3a2f2f]">
+    <nav class="anim-nav">
+        <a href="portfolio.html">Home</a>
+        <a href="portfolio.html#projects-anchor">Projects</a>
+        <a href="art.html">Art Gallery</a>
+        <a href="portfolio.html#contact-anchor">Contacts</a>
+    </nav>
+
+    <!-- Top Banner -->
+    <div class="relative">
+        <img src="mama.jpg" alt="Header" class="w-full h-auto">
+    </div>
+
+    <!-- Main Section -->
+    <div class="max-w-6xl mx-auto px-8 py-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+            <!-- Left: Book Stack -->
+            <div>
+                <img src="rmaFy (1).jpg" alt="MAMA Book" class="book-shadow w-full">
+            </div>
+
+            <!-- Right: Title + Description -->
+            <div class="pt-8">
+                <h1 class="text-6xl md:text-[120px] leading-none font-bold tracking-tighter serif">MAMA</h1>
+
+                <p class="mt-6 md:mt-10 text-base md:text-lg leading-relaxed">
+                    This luxury fashion diary is designed to be your go-to guide for understanding the maternal stages,
+                    styles, and fashion that define pregnancy beautifully. Whether you are a first-time mom-to-be or a
+                    seasoned fashion professional, this journal will help you navigate the world of pregnancy fashion
+                    with grace, confidence, and style.
+                </p>
+
+                <p class="mt-6 md:mt-8 text-base md:text-lg leading-relaxed">
+                    Inside, you'll find definitions of key maternity fashion terms, do's and don'ts of maternity
+                    dressing, and insights into how to style your different stages of pregnancy with ease.
+                </p>
+            </div>
+        </div>
+
+        <!-- About the Book -->
+        <div class="mt-24">
+            <h2 class="text-3xl font-medium text-center mb-12">ABOUT THE BOOK</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+
+                <!-- Typography -->
+                <div>
+                    <h3 class="font-medium text-xl mb-6">TYPOGRAPHY</h3>
+                    <p class="font-medium">MAMA - Helvetica Neue Bold</p>
+                    <p class="mt-8 text-sm leading-relaxed">
+                        As <span class="font-medium">Playfair Display – Display & Titles</span><br><br>
+                        Old style, body text, definitions, captions. Used across all content pages for legibility and
+                        reading flow.
+                    </p>
+                </div>
+
+                <!-- Color Palette -->
+                <div>
+                    <h3 class="font-medium text-xl mb-6">COLOR PALETTE</h3>
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-[#3a2f2f] rounded"></div>
+                        <div class="w-12 h-12 bg-[#f8f1e9] border rounded"></div>
+                        <div class="w-12 h-12 bg-[#e8d9c8] rounded"></div>
+                    </div>
+                    <p class="mt-8 text-sm leading-relaxed">
+                        A minimal, ethereal palette — deep black, warm off-white, and neutral tones. Keeps focus on
+                        content, imagery, and definitions.
+                    </p>
+                </div>
+
+                <!-- Target Audience -->
+                <div>
+                    <h3 class="font-medium text-xl mb-6">TARGET AUDIENCE</h3>
+                    <p class="text-lg leading-relaxed">
+                        Expecting mothers seeking confidence<br><br>
+                        Fashion professionals building maternity collections
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Internal Pages Grid -->
+        <div class="mt-28 grid grid-cols-2 md:grid-cols-3 gap-8">
+            <div class="text-center"><img src="A.jpg" class="shadow-xl">
+                <p class="mt-3"></p>
+            </div>
+            <div class="text-center"><img src="B.jpg" class="shadow-xl">
+                <p class="mt-3"></p>
+            </div>
+            <div class="text-center"><img src="C.jpg" class="shadow-xl">
+                <p class="mt-3"></p>
+            </div>
+            <div class="text-center"><img src="D.jpg" class="shadow-xl">
+                <p class="mt-3"></p>
+            </div>
+            <div class="text-center"><img src="E.jpg" class="shadow-xl">
+                <p class="mt-3"></p>
+            </div>
+            <div class="text-center"><img src="F.jpg" class="shadow-xl">
+                <p class="mt-3"></p>
+            </div>
+            <div class="text-center"><img src="G.jpg" class="shadow-xl">
+                <p class="mt-3"></p>
+            </div>
+            <div class="text-center"><img src="W.jpg" class="shadow-xl">
+                <p class="mt-3"></p>
+            </div>
+            <div class="text-center"><img src="Y.jpg" class="shadow-xl">
+                <p class="mt-3"></p>
+            </div>
+        </div>
+
+        <!-- Bottom Text -->
+        <div class="mt-24 max-w-3xl mx-auto text-center text-lg leading-relaxed">
+            <p>Pregnancy is a journey — one is deserving to be celebrated.</p>
+            <p class="mt-10">
+                From the earliest maternity looks to the final bump, this book holds essential styling notes,
+                inspiration, and fashion advice for all stages of pregnancy.
+            </p>
+        </div>
+    </div>
+
+    <div class="bg-zinc-50 py-12 md:py-20">
+        <div class="max-w-5xl mx-auto text-center px-4">
+            <h2 class="text-2xl md:text-4xl font-medium mb-8 md:mb-12">Flip Through MAMA</h2>
+
+            <!-- Paste your existing flipbook code here -->
+            <div id="flipbook-container" class="relative pb-[140%] h-0 md:pb-0 md:h-[700px] overflow-hidden">
+                <iframe src="https://heyzine.com/flip-book/5cac2fcc1e.html" 
+                    class="absolute top-0 left-0 w-full h-full md:relative md:h-[700px]"
+                    frameborder="0"></iframe>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

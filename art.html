@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Gallery | Samruddhi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #FF5C00;
+            --text-navy: #001B44;
+            --text-grey: #555555;
+            --dot-color: #ecc299;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+            background-size: 24px 24px;
+            background-color: #fafafa;
+            color: var(--text-navy);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            padding: 30px 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-grey);
+            font-size: 18px;
+            font-weight: 600;
+            transition: 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-orange);
+        }
+
+        .active-link {
+            color: var(--primary-orange) !important;
+            font-weight: 700;
+        }
+
+        .logo-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-grey);
+        }
+
+        /* Gallery Header & Frog Placement */
+        .gallery-header {
+            text-align: center;
+            max-width: 900px;
+            margin: 120px auto 60px;
+            padding: 0 20px;
+        }
+
+        .frog-title-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* JUMPING ANIMATION */
+        @keyframes frogJump {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .gallery-frog-container {
+            position: absolute;
+            top: -55px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: flex-start;
+            z-index: 10;
+            /* Applying the jump to the whole container so the note jumps too */
+            animation: frogJump 1.3s ease-in-out infinite;
+        }
+
+        .gallery-frog {
+            width: 55px;
+            height: auto;
+        }
+
+        .gallery-speech-bubble {
+            background: white;
+            border: 1.5px solid #333;
+            border-radius: 12px;
+            padding: 5px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            white-space: nowrap;
+            box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.05);
+            margin-left: -8px;
+            margin-top: -15px;
+            position: relative;
+        }
+
+        .gallery-speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 8px;
+            border-width: 5px 5px 0 0;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .gallery-header h1 {
+            font-size: 75px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin: 10px 0 20px 0;
+            line-height: 1;
+        }
+
+        .gallery-header p {
+            color: var(--text-grey);
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Grid Layout (3-2-3-2) */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            padding: 0 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 70px;
+        }
+
+        .art-row {
+            display: grid;
+            gap: 30px;
+        }
+
+        .row-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .row-2 {
+            grid-template-columns: repeat(2, 1fr);
+            width: 75%;
+            margin: 0 auto;
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            padding: 0 40px;
+            /* This creates the varied size effect by flowing art into columns */
+            column-count: 3;
+            column-gap: 30px;
+        }
+
+
+        .art-card {
+            background: transparent;
+            border-radius: 20px;
+            overflow: visible;
+            position: relative;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+
+        .art-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: box-shadow 0.4s ease;
+        }
+
+        /* Arrow overlay — hidden by default */
+        .art-card .card-arrow {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            width: 42px;
+            height: 42px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transform: scale(0.6) rotate(-45deg);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .art-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            z-index: 5;
+        }
+
+        .art-card:hover img {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+        }
+
+        .art-card:hover .card-arrow {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        .art-row {
+            display: grid;
+            gap: 30px;
+            align-items: start;
+        }
+
+        /* ── Tablet (≤ 900px) ── */
+        @media (max-width: 900px) {
+            nav {
+                gap: 20px;
+                padding: 20px 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+                position: sticky;
+                top: 0;
+                background: rgba(250, 250, 250, 0.8);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+                z-index: 1000;
+            }
+
+            nav a { font-size: 15px; }
+
+            .gallery-header {
+                margin: 70px auto 40px;
+                padding: 0 20px;
+            }
+
+            .gallery-header h1 { font-size: 54px; }
+
+            .gallery-container {
+                column-count: 2;
+                padding: 0 20px;
+            }
+        }
+
+        /* ── Mobile (≤ 600px) ── */
+        @media (max-width: 600px) {
+            nav {
+                gap: 12px;
+                padding: 12px 10px;
+            }
+
+            nav a { font-size: 13px; }
+
+            .gallery-header {
+                margin: 40px auto 20px;
+            }
+
+            .gallery-header h1 { font-size: 36px; letter-spacing: 2px; }
+
+            .gallery-frog-container {
+                top: -45px;
+            }
+
+            .gallery-frog {
+                width: 40px;
+            }
+
+            .gallery-speech-bubble {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+
+            .gallery-header p { font-size: 14px; }
+
+            .gallery-container {
+                column-count: 1;
+                padding: 0 16px;
+                gap: 30px;
+            }
+        }
+
+        /* --- SCATTER TEXT ANIMATION (from portfolio) --- */
+        .scatter-text {
+            overflow: visible;
+        }
+
+        .scatter-text .scatter-char {
+            display: inline-block;
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .scatter-text .scatter-char.scatter-space {
+            width: 0.3em;
+        }
+
+        .scatter-text.scatter-active .scatter-char {
+            opacity: 1;
+            transform: translate(0, 0) rotate(0deg) !important;
+        }
+
+        /* --- ENTRANCE ANIMATIONS --- */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .anim-hidden {
+            opacity: 0;
+        }
+
+        .anim-fade-down {
+            animation: fadeInDown 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        .anim-fade-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="anim-hidden" data-anim="anim-fade-down">
+        <a href="portfolio.html">Home</a>
+        <a href="portfolio.html#projects-anchor">Projects</a>
+        <a href="art.html" class="active-link">Art Gallery</a>
+        <a href="#">Contacts</a>
+    </nav>
+
+    <header class="gallery-header">
+        <div class="frog-title-wrapper">
+            <div class="gallery-frog-container">
+                <img src="frog1.png" alt="Frog" class="gallery-frog">
+                <div class="gallery-speech-bubble">Explore her creativity</div>
+            </div>
+            <h1 class="scatter-text">Art Gallery</h1>
+        </div>
+        <p class="scatter-text" data-scatter-delay="200">A space where my thoughts take form through paint and texture,
+            inspired by nature and everyday calm.</p>
+    </header>
+
+    <main class="gallery-container">
+        <div class="art-row row-3">
+            <div class="art-card"><img src="blinded.jpeg" alt="Art 1">
+                <div class="card-arrow">↗</div>
+            </div>
+            <div class="art-card"><img src="koi fish.jpeg" alt="Art 2">
+                <div class="card-arrow">↗</div>
+            </div>
+            <div class="art-card"><img src="mr.bean.jpeg" alt="Art 3">
+                <div class="card-arrow">↗</div>
+            </div>
+        </div>
+        <div class="art-row row-2">
+            <div class="art-card"><img src="krish.jpeg" alt="Art 4">
+                <div class="card-arrow">↗</div>
+            </div>
+            <div class="art-card"><img src="heart.jpeg" alt="Art 5">
+                <div class="card-arrow">↗</div>
+            </div>
+        </div>
+
+        <div class="art-row row-3">
+            <div class="art-card"><img src="a girl.jpeg" alt="Art 6">
+                <div class="card-arrow">↗</div>
+            </div>
+            <div class="art-card"><img src="hands.jpeg" alt="Art 7">
+                <div class="card-arrow">↗</div>
+            </div>
+            <div class="art-card"><img src="radha krishna.jpeg" alt="Art 8">
+                <div class="card-arrow">↗</div>
+            </div>
+        </div>
+
+        <div class="art-row row-2">
+            <div class="art-card"><img src="fafa.jpg" alt="Art 9">
+                <div class="card-arrow">↗</div>
+            </div>
+            <div class="art-card"><img src="art10.jpg" alt="Art 10">
+                <div class="card-arrow">↗</div>
+            </div>
+        </div>
+    </main>
+    <script>
+        // ============================
+        // SCATTER TEXT ANIMATION SYSTEM
+        // ============================
+        function prepareScatterText(el) {
+            const chars = [];
+            function walk(node) {
+                if (node.nodeType === 3) {
+                    const parentClasses = (node.parentElement !== el) ? node.parentElement.className : '';
+                    [...node.textContent].forEach(char => {
+                        chars.push({ char, classes: parentClasses });
+                    });
+                } else if (node.nodeType === 1) {
+                    node.childNodes.forEach(child => walk(child));
+                }
+            }
+            walk(el);
+
+            // Normalize whitespace
+            const normalized = [];
+            let lastWasSpace = false;
+            chars.forEach(item => {
+                if (item.char === ' ' || item.char === '\n' || item.char === '\r' || item.char === '\t') {
+                    if (!lastWasSpace) {
+                        normalized.push({ char: ' ', classes: item.classes });
+                        lastWasSpace = true;
+                    }
+                } else {
+                    normalized.push(item);
+                    lastWasSpace = false;
+                }
+            });
+
+            el.innerHTML = '';
+            normalized.forEach((item, i) => {
+                const span = document.createElement('span');
+                span.classList.add('scatter-char');
+                if (item.classes) {
+                    item.classes.split(' ').forEach(cls => { if (cls) span.classList.add(cls); });
+                }
+                if (item.char === ' ') {
+                    span.classList.add('scatter-space');
+                    span.innerHTML = '&nbsp;';
+                } else {
+                    span.textContent = item.char;
+                }
+                const randX = (Math.random() - 0.5) * 600;
+                const randY = (Math.random() - 0.5) * 400;
+                const randRot = (Math.random() - 0.5) * 120;
+                span.style.transform = `translate(${randX}px, ${randY}px) rotate(${randRot}deg)`;
+                span.style.transitionDelay = `${i * 15}ms`;
+                el.appendChild(span);
+            });
+        }
+
+        function triggerScatter(el) {
+            const delay = parseInt(el.getAttribute('data-scatter-delay') || 0);
+            setTimeout(() => {
+                el.classList.add('scatter-active');
+            }, delay);
+        }
+
+        // Prepare all scatter-text elements
+        document.querySelectorAll('.scatter-text').forEach(el => {
+            prepareScatterText(el);
+        });
+
+        // Fire scatter on page load (with a short delay so the page settles first)
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.scatter-text').forEach(el => triggerScatter(el));
+            }, 100);
+        });
+
+        // ============================
+        // ENTRANCE ANIMATIONS (nav, header, cards)
+        // ============================
+        const animObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const animClass = el.getAttribute('data-anim');
+                    const delay = el.getAttribute('data-delay') || 0;
+                    setTimeout(() => {
+                        el.classList.remove('anim-hidden');
+                        el.classList.add(animClass);
+                    }, parseInt(delay));
+                    animObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('[data-anim]').forEach(el => animObserver.observe(el));
+
+        // Stagger art cards on scroll
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const cards = entry.target.querySelectorAll('.art-card');
+                    cards.forEach((card, i) => {
+                        card.style.opacity = '0';
+                        setTimeout(() => {
+                            card.style.transition = 'opacity 0.7s ease';
+                            card.style.opacity = '1';
+                            // Clear inline transition after fade so CSS hover takes over
+                            setTimeout(() => { card.style.transition = ''; }, 800);
+                        }, i * 120);
+                    });
+                    cardObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.art-row').forEach(row => {
+            row.querySelectorAll('.art-card').forEach(card => { card.style.opacity = '0'; });
+            cardObserver.observe(row);
+        });
+    </script>
+</body>
+
+</html>
